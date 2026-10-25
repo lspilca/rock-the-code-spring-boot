@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: Riders API
+  description: API for managing riders
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+tags:
+  - name: Riders
+    description: Operations on riders
+paths:
+  /api/v1/riders:
+    post:
+      tags:
+        - Riders
+      summary: Add a new rider
+      description: Creates a new rider and returns it, including its generated external ID
+      operationId: createRider
+      requestBody:
+        description: Rider to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './riders-schema.yml#/components/schemas/CreateRiderRequest'
+      responses:
+        '201':
+          description: Rider created
+          headers:
+            Location:
+              description: URL of the newly created rider
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                $ref: './riders-schema.yml#/components/schemas/RiderDTO'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: './riders-schema.yml#/components/schemas/ValidationErrorResponse'
+  /api/v1/riders/{externalId}:
+    get:
+      tags:
+        - Riders
+      summary: Get a rider by external ID
+      description: Returns a single rider identified by its external ID
+      operationId: getRiderByExternalId
+      parameters:
+        - name: externalId
+          in: path
+          description: External ID of the rider to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Rider found
+          content:
+            application/json:
+              schema:
+                $ref: './riders-schema.yml#/components/schemas/RiderDTO'
+        '400':
+          description: Invalid external ID format
+          content:
+            application/json:
+              schema:
+                $ref: './riders-schema.yml#/components/schemas/ErrorResponse'
+        '404':
+          description: Rider not found
+          content:
+            application/json:
+              schema:
+                $ref: './riders-schema.yml#/components/schemas/ErrorResponse'

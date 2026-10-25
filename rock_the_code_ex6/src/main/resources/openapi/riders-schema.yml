@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Riders Schemas
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    RiderDTO:
+      type: object
+      required:
+        - externalId
+        - name
+      properties:
+        externalId:
+          type: string
+          format: uuid
+          description: Public unique identifier of the rider
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        name:
+          type: string
+          description: Name of the rider
+          example: Valentino Rossi
+    CreateRiderRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 20
+          description: Name of the rider
+          example: Valentino Rossi
+    ErrorResponse:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+          example: 404
+        message:
+          type: string
+          description: Error message
+          example: Rider not found
+    FieldViolation:
+      type: object
+      required:
+        - field
+        - message
+      properties:
+        field:
+          type: string
+          description: Name of the request field that failed validation
+          example: name
+        message:
+          type: string
+          description: Reason the field failed validation
+          example: size must be between 1 and 20
+    ValidationErrorResponse:
+      type: object
+      required:
+        - message
+        - errors
+      properties:
+        message:
+          type: string
+          description: Summary of the validation failure
+          example: Validation failed!
+        errors:
+          type: array
+          description: Violations found in the request body, one per invalid field
+          items:
+            $ref: '#/components/schemas/FieldViolation'

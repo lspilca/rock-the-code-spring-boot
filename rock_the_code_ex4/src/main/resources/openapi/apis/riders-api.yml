@@ -1,0 +1,48 @@
+riders:
+  post:
+    tags:
+      - Riders
+    summary: Add a new rider
+    operationId: addRider
+    requestBody:
+      required: true
+      description: Details of the rider to add, including its ID
+      content:
+        application/json:
+          schema:
+            $ref: '../openapi.yml#/components/schemas/Rider'
+    responses:
+      '201':
+        description: Rider created
+        content:
+          application/json:
+            schema:
+              $ref: '../openapi.yml#/components/schemas/Rider'
+      '400':
+        description: Invalid rider details
+      '409':
+        description: A rider with the given ID already exists
+
+riderById:
+  get:
+    tags:
+      - Riders
+    summary: Get a rider by ID
+    operationId: getRiderById
+    parameters:
+      - name: riderId
+        in: path
+        required: true
+        description: Unique identifier of the rider
+        schema:
+          type: integer
+          format: int64
+    responses:
+      '200':
+        description: Rider found
+        content:
+          application/json:
+            schema:
+              $ref: '../openapi.yml#/components/schemas/Rider'
+      '404':
+        description: Rider not found

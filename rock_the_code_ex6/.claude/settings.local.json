@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v \"/\\\\.mvn/\\\\|/\\\\.git/\")",
+      "Read(//c/Users/Laur/.m2/repository/org/springdoc/springdoc-openapi-starter-webmvc-ui/**)",
+      "Bash(curl -sS -m 20 \"https://repo1.maven.org/maven2/org/springdoc/springdoc-openapi-starter-webmvc-ui/maven-metadata.xml\")",
+      "Bash(curl -sS -m 20 \"https://repo1.maven.org/maven2/org/openapitools/openapi-generator-maven-plugin/maven-metadata.xml\")",
+      "Bash(curl -sS -m 20 \"https://repo1.maven.org/maven2/org/openapitools/jackson-databind-nullable/maven-metadata.xml\")",
+      "Bash(./mvnw -q -DskipTests compile)"
+    ]
+  }
+}

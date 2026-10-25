@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Lessons Schemas
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    LessonDTO:
+      type: object
+      required:
+        - externalId
+        - riderExternalId
+        - lessonDate
+        - lessonTime
+        - duration
+      properties:
+        externalId:
+          type: string
+          format: uuid
+          description: Public unique identifier of the lesson
+          example: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+        riderExternalId:
+          type: string
+          format: uuid
+          description: External ID of the rider the lesson belongs to
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        lessonDate:
+          type: string
+          format: date
+          description: Date of the lesson
+          example: '2026-10-15'
+        lessonTime:
+          type: string
+          pattern: '^([01]\d|2[0-3]):[0-5]\d$'
+          description: Start time of the lesson (HH:mm, 24-hour clock)
+          example: '14:30'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Duration of the lesson in minutes
+          example: 60
+    CreateLessonRequest:
+      type: object
+      required:
+        - lessonDate
+        - lessonTime
+        - duration
+      properties:
+        lessonDate:
+          type: string
+          format: date
+          description: Date of the lesson
+          example: '2026-10-15'
+        lessonTime:
+          type: string
+          pattern: '^([01]\d|2[0-3]):[0-5]\d$'
+          description: Start time of the lesson (HH:mm, 24-hour clock)
+          example: '14:30'
+        duration:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Duration of the lesson in minutes
+          example: 60

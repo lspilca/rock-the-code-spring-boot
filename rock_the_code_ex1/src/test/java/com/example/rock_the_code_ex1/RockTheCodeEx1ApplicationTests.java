@@ -1,0 +1,13 @@
+package com.example.rock_the_code_ex1;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class RockTheCodeEx1ApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

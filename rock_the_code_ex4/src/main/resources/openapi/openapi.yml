@@ -1,0 +1,13 @@
+openapi: 3.0.3
+info:
+  title: Rock the Code API
+  version: 1.0.0
+paths:
+  /riders:
+    $ref: './apis/riders-api.yml#/riders'
+  /riders/{riderId}:
+    $ref: './apis/riders-api.yml#/riderById'
+components:
+  schemas:
+    Rider:
+      $ref: './schemas/riders-schema.yml#/components/schemas/Rider'

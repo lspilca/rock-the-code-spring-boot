@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Lessons API
+  description: API for managing riders' lessons
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+tags:
+  - name: Lessons
+    description: Operations on riders' lessons
+paths:
+  /api/v1/riders/{externalId}/lessons:
+    post:
+      tags:
+        - Lessons
+      summary: Add a lesson for a rider
+      description: Creates a new lesson for the rider identified by its external ID and returns it, including its generated external ID
+      operationId: createLessonForRider
+      parameters:
+        - name: externalId
+          in: path
+          description: External ID of the rider the lesson is added for
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Lesson to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './lessons-schema.yml#/components/schemas/CreateLessonRequest'
+      responses:
+        '201':
+          description: Lesson created
+          headers:
+            Location:
+              description: URL of the newly created lesson
+              schema:
+                type: string
+                format: uri
+          content:
+            application/json:
+              schema:
+                $ref: './lessons-schema.yml#/components/schemas/LessonDTO'
+        '400':
+          description: Invalid external ID format or invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: './riders-schema.yml#/components/schemas/ValidationErrorResponse'
+        '404':
+          description: Rider not found
+          content:
+            application/json:
+              schema:
+                $ref: './riders-schema.yml#/components/schemas/ErrorResponse'

@@ -1,0 +1,16 @@
+components:
+  schemas:
+    Rider:
+      title: Rider
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier of the rider
+        name:
+          type: string
+          description: Rider's display name
